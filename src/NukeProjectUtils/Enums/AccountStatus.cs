@@ -1,4 +1,4 @@
-﻿namespace NukeProjectUtils.ValueObjects.Base.Enums;
+﻿namespace NukeProjectUtils.Enums;
 
 public enum AccountStatus
 {

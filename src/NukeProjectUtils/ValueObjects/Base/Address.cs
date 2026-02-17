@@ -1,5 +1,4 @@
-﻿using NukeAuthentication.Shared.Exceptions;
-using NukeProjectUtils.ExtensionMethods;
+﻿using NukeProjectUtils.ExtensionMethods;
 using static NukeProjectUtils.ExtensionMethods.StringExtensionHelper;
 
 namespace NukeProjectUtils.ValueObjects.Base;

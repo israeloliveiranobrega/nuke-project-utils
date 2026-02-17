@@ -4,7 +4,7 @@ namespace NukeProjectUtils.ValueObjects.Base;
 
 public record UserAgentInfo
 {
-    public string UserAgentComplete { get; set; }
+    public string RawValue { get; set; }
     public string? Browser { get; set; }
     public string? BrowserMajor { get; set; }
     public string? System { get; set; }
@@ -13,11 +13,11 @@ public record UserAgentInfo
     public string? DeviceBrand { get; set; }
     public bool? SpiderOrBot { get; set; }
 
-    private UserAgentInfo() { }
+    private UserAgentInfo() { RawValue = null!; }
 
     public UserAgentInfo(string userAgentComplete)
     {
-        UserAgentComplete = userAgentComplete;
+        RawValue = userAgentComplete;
 
         ClientInfo client = Parser.GetDefault().Parse(userAgentComplete);
 

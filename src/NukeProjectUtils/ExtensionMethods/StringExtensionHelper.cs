@@ -1,13 +1,13 @@
 ﻿namespace NukeProjectUtils.ExtensionMethods;
 
+public enum CheckType
+{
+    OnlyLetters,
+    OnlyNumbers,
+    LettersOrNumbers
+}
 public static class StringExtensionHelper
 {
-    public enum CheckType
-    {
-        OnlyLetters,
-        OnlyNumbers,
-        LettersOrNumbers
-    }
     public static bool IsOnlyLettersOrNumbers(this string stringToCheck, CheckType checkType)
     {
         return checkType switch
@@ -21,7 +21,7 @@ public static class StringExtensionHelper
 
     public static bool HasContent(this string stringToCheck)
     {
-        if(string.IsNullOrEmpty(stringToCheck))
+        if(string.IsNullOrEmpty(stringToCheck) || string.IsNullOrWhiteSpace(stringToCheck))
             return false;
         
         return true;
@@ -40,6 +40,13 @@ public static class StringExtensionHelper
             return false;
 
         return true;
+    }
+    public static bool ExceedsMaxLength(this string stringToCheck, int MaxLength)
+    {
+        if(stringToCheck.Length > MaxLength)
+            return true;
+
+        return false;
     }
     public static bool InLengthRange(this string stringToCheck, int minLength, int maxLength)
     {
