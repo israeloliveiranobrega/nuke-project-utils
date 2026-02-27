@@ -1,7 +1,6 @@
 ﻿using NukeProjectUtils.ExtensionMethods;
-using static NukeProjectUtils.ExtensionMethods.StringExtensionHelper;
 
-namespace NukeProjectUtils.ValueObjects.Base;
+namespace NukeProjectUtils.ValueObjects.Aggregates;
 public record Address
 {
     public string ZipCode { get; init; }
@@ -57,12 +56,18 @@ public record Address
     private static void ValidatePostalCode(string postalCode)
     {
         if (!postalCode.IsOnlyLettersOrNumbers(CheckType.OnlyNumbers) || !postalCode.HasLength(8))
-            throw new InvalidPostalCodeFormatException();
+        {
+
+        }
+            //throw new InvalidPostalCodeFormatException();
     }
     private static void ValidateNumber(string number)
     {
         if (!number.IsOnlyLettersOrNumbers(CheckType.OnlyNumbers) || int.Parse(number) <= 0)
-            throw new InvalidNumberFormatException();
+        {
+            
+        }
+            //throw new InvalidNumberFormatException();
     }
     private static void ValidateAddressFormar(string str)
     {

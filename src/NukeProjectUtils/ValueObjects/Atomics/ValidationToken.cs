@@ -7,13 +7,14 @@ namespace NukeProjectUtils.ValueObjects.Atomics;
 
 public record ValidationToken
 {
-    private static readonly char[] AlphanumericChars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789".ToCharArray();
-
     public string Value { get; init; }
     public DateTime ExpiresOn { get; init; }
     public ValidationTokenType VerificationType { get; init; }
 
+    //Construtor para o EF
     private ValidationToken() { Value = null!;}
+
+    #region Token Creation
 
     private ValidationToken(string token, DateTime expiresOn, ValidationTokenType type)
     {
@@ -22,30 +23,34 @@ public record ValidationToken
         VerificationType = type;
     }
 
-    public static Result<ValidationToken, ErrorTrack> Create(ValidationTokenType type, DateTime? expiresOn = null)
+    public static Result<ValidationToken> Create(ValidationTokenType type, DateTime? expiresOn = null)
     {
         DateTime expirationDate = expiresOn ?? GetDefaultExpirationByType(type);
 
         return type switch
         {
-            ValidationTokenType.OneTimePassword => Result<ValidationToken, ErrorTrack>.Success(GenerateOtp(expirationDate)),
-            ValidationTokenType.AlphanumericCode => Result<ValidationToken, ErrorTrack>.Success(GenerateAlphanumeric(expirationDate)),
-            ValidationTokenType.UrlSafe => Result<ValidationToken, ErrorTrack>.Success(GenerateUrlSafe(expirationDate)),
-            ValidationTokenType.RefreshToken => Result<ValidationToken, ErrorTrack>.Success(GenerateRefreshToken(expirationDate)),
-            _ => Result<ValidationToken, ErrorTrack>.Fail(ErrorTrack.Create(nameof(ValidationToken), VerificationTokenError.InvalidOption))
+            ValidationTokenType.OneTimePassword => Result<ValidationToken>.Success(GenerateOtp(expirationDate)),
+            ValidationTokenType.AlphanumericCode => Result<ValidationToken>.Success(GenerateAlphanumeric(expirationDate)),
+            ValidationTokenType.UrlSafe => Result<ValidationToken>.Success(GenerateUrlSafe(expirationDate)),
+            ValidationTokenType.RefreshToken => Result<ValidationToken>.Success(GenerateRefreshToken(expirationDate)),
+            _ => Result<ValidationToken>.Failure(ErrorTrack.Create(VerificationTokenError.InvalidOption.ToString()))
         };
     }
 
-    public Result<bool, ErrorTrack> VerifyToken(string tokenToVerify)
+    #endregion
+
+    #region Public Tools
+
+    public Result<bool> VerifyToken(string tokenToVerify)
     {
         if (string.IsNullOrWhiteSpace(tokenToVerify))
         {
-            return Result<bool, ErrorTrack>.Fail(ErrorTrack.Create(nameof(ValidationToken), VerificationTokenError.TokenIsNull));
+            return Result<bool>.Failure(ErrorTrack.Create(VerificationTokenError.TokenIsNull.ToString()));
         }
 
         if (ExpiresOn <= DateTime.UtcNow)
         {
-            return Result<bool, ErrorTrack>.Fail(ErrorTrack.Create(nameof(ValidationToken), VerificationTokenError.TokenExpired));
+            return Result<bool>.Failure(ErrorTrack.Create(VerificationTokenError.TokenExpired.ToString()));
         }
 
         var tokenBytes = Encoding.UTF8.GetBytes(Value);
@@ -53,11 +58,15 @@ public record ValidationToken
 
         if (!CryptographicOperations.FixedTimeEquals(tokenBytes, inputBytes))
         {
-            return Result<bool, ErrorTrack>.Fail(ErrorTrack.Create(nameof(ValidationToken), VerificationTokenError.TokenNotMatch));
+            return Result<bool>.Failure(ErrorTrack.Create(VerificationTokenError.TokenNotMatch.ToString()));
         }
 
-        return Result<bool, ErrorTrack>.Success(true);
+        return Result<bool>.Success(true);
     }
+
+    #endregion
+
+    #region Private Tools
 
     private static DateTime GetDefaultExpirationByType(ValidationTokenType type)
     {
@@ -69,7 +78,7 @@ public record ValidationToken
             ValidationTokenType.AlphanumericCode => now.AddMinutes(6),
             ValidationTokenType.UrlSafe => now.AddHours(6),
             ValidationTokenType.RefreshToken => now.AddDays(7),
-            _ => now.AddMinutes(10) 
+            _ => now.AddMinutes(10)
         };
     }
 
@@ -81,7 +90,7 @@ public record ValidationToken
 
     private static ValidationToken GenerateAlphanumeric(DateTime expiresOn)
     {
-        var token = RandomNumberGenerator.GetItems<char>(AlphanumericChars, 8);
+        var token = RandomNumberGenerator.GetItems<char>("ABCDEFGHJKLMNPQRSTUVWXYZ23456789".ToCharArray(), 8);
         return new ValidationToken(new string(token), expiresOn, ValidationTokenType.AlphanumericCode);
     }
 
@@ -105,4 +114,6 @@ public record ValidationToken
         var token = Convert.ToBase64String(randomNumber);
         return new ValidationToken(token, expiresOn, ValidationTokenType.RefreshToken);
     }
+
+    #endregion
 }

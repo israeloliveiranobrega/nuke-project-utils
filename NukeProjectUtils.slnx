@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="src/NukeProjectUtils/NukeProjectUtils.csproj" />
+  <Project Path="tests/NukeProjectUtils.Tests/NukeProjectUtils.Tests.csproj" />
 </Solution>

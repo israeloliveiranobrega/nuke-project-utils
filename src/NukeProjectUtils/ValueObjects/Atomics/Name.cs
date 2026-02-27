@@ -7,16 +7,14 @@ namespace NukeProjectUtils.ValueObjects.Atomics;
 
 public partial record Name
 {
-    [GeneratedRegex(@"^[\p{L}'-]+( [\p{L}'-]+)*$", RegexOptions.None, 100)]
-    private static partial Regex NameRegex();
-
-
     public string FirstName { get; init; }
     public string LastName { get; init; }
-
     public string FullName => $"{FirstName} {LastName}";
 
+    //Construtor para o EF
     private Name() { FirstName = null!; LastName = null!; }
+
+    #region Name Creation 
 
     private Name(string firstName, string lastName) 
     {
@@ -24,52 +22,64 @@ public partial record Name
         LastName = lastName;
     }
 
-    private static Result<bool, ErrorTrack> IsValidName(string namePart, int MaxLength)
-    {
-        if (!namePart.HasContent())
-        {
-            var error = ErrorTrack.Create(nameof(Name), NameCreationError.NullOrEmpty);
-            return Result<bool, ErrorTrack>.Fail(error);
-        }
-
-        if (!namePart.HasMinLength(3))
-        {
-            var error = ErrorTrack.Create(nameof(Name), NameCreationError.NameTooShort);
-            return Result<bool, ErrorTrack>.Fail(error);
-        }
-
-        if (namePart.ExceedsMaxLength(MaxLength))
-        {
-            var error = ErrorTrack.Create(nameof(Name), NameCreationError.NameExedesLength);
-            return Result<bool, ErrorTrack>.Fail(error);
-        }
-
-        if (!CheckNameRules(namePart))
-        {
-            var error = ErrorTrack.Create(nameof(Name), NameCreationError.InvalidCharacters);
-            return Result<bool, ErrorTrack>.Fail(error);
-        }
-
-        return Result<bool, ErrorTrack>.Success(true);
-    }
-
-    public static Result<Name,ErrorTrack> Create(string firstName, string lastName)
+    public static Result<Name> Create(string firstName, string lastName)
     {
         string cleanFirstName = firstName.Trim() ?? string.Empty;
         string cleanLastName = lastName.Trim() ?? string.Empty;
 
         var firstResult = IsValidName(cleanFirstName, 30);
 
-        if (!firstResult.IsSuccess)
-            return Result<Name, ErrorTrack>.Fail(firstResult.Failure);
+        if (!firstResult.IsFailure)
+            return Result<Name>.Failure(firstResult.ErrorTrack);
 
         var secondResult = IsValidName(cleanLastName, 70);
 
-        if (!secondResult.IsSuccess)
-            return Result<Name, ErrorTrack>.Fail(secondResult.Failure);
+        if (!secondResult.IsFailure)
+            return Result<Name>.Failure(secondResult.ErrorTrack);
 
-        return Result<Name, ErrorTrack>.Success(new (cleanFirstName, cleanLastName));
+        return Result<Name>.Success(new (cleanFirstName, cleanLastName));
     }
 
-    private static bool CheckNameRules(string name) => NameRegex().IsMatch(name);
+    #endregion
+
+    #region Private Tools
+
+    private static Result<bool> IsValidName(string namePart, int MaxLength)
+    {
+        if (!namePart.HasContent())
+        {
+            var error = ErrorTrack.Create(NameCreationError.NullOrEmpty.ToString());
+            return Result<bool>.Failure(error);
+        }
+
+        if (!namePart.HasMinLength(3))
+        {
+            var error = ErrorTrack.Create(NameCreationError.NameTooShort.ToString());
+            return Result<bool>.Failure(error);
+        }
+
+        if (namePart.ExceedsMaxLength(MaxLength))
+        {
+            var error = ErrorTrack.Create(NameCreationError.NameExedesLength.ToString());
+            return Result<bool>.Failure(error);
+        }
+
+        if (!CheckNameRules(namePart))
+        {
+            var error = ErrorTrack.Create(NameCreationError.InvalidCharacters.ToString());
+            return Result<bool>.Failure(error);
+        }
+
+        return Result<bool>.Success(true);
+    }
+
+    [GeneratedRegex(@"^[\p{L}'-]+( [\p{L}'-]+)*$", RegexOptions.None, 100)]
+    private static partial Regex NameRegex();
+
+    private static bool CheckNameRules(string name)
+    {
+        return NameRegex().IsMatch(name);
+    }
+
+    #endregion
 }

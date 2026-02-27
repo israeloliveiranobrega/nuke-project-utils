@@ -6,44 +6,57 @@ namespace NukeProjectUtils.ValueObjects.Atomics;
 
 public partial record Password
 {
-    [GeneratedRegex(@"^(?=.*[A-Z])(?=.*\d).{15,}$", RegexOptions.None, 100)]
-    private static partial Regex PasswordRegex();
+    public string RawValue { get; init; }
 
-    public string Value { get; init; }
+    //Construtor para o EF
+    private Password() { RawValue = null!; }
 
-    private Password() { Value = null!; }
+    #region Password Creation
 
-    private Password(string password) => Value = password;
+    private Password(string password) { RawValue = password; }
 
-    public Result<bool, ErrorTrack> Verify(string password)
-    {
-        string cleanPassword = password.Trim() ?? string.Empty;
-
-        if (!BCrypt.Net.BCrypt.Verify(cleanPassword, Value))
-        {
-            var error = ErrorTrack.Create(nameof(Password), PasswordCreateError.ThePasswordDoesntMatch);
-            return Result<bool, ErrorTrack>.Fail(error);
-        }
-
-        return Result<bool, ErrorTrack>.Success(true);
-    }
-
-    public static Result<Password, ErrorTrack> Create(string password)
+    public static Result<Password> Create(string password)
     {
         string cleanPassword = password.Trim() ?? string.Empty;
 
         if (!CheckPasswordRules(cleanPassword))
         {
-            var error = ErrorTrack.Create(nameof(Password),PasswordCreateError.DoesNotMeetTheRequirements);
-            return Result<Password, ErrorTrack>.Fail(error);
+            var error = ErrorTrack.Create(PasswordCreateError.DoesNotMeetTheRequirements.ToString());
+            return Result<Password>.Failure(error);
         }
 
         string hash = BCrypt.Net.BCrypt.HashPassword(cleanPassword);
 
-        return Result<Password, ErrorTrack>.Success(new(hash));
+        return Result<Password>.Success(new(hash));
     }
 
-    private static bool CheckPasswordRules(string password) => PasswordRegex().IsMatch(password);
+    #endregion
 
-    public static implicit operator string(Password password) => password.Value;
+    #region Public Tools
+
+    public Result<bool> Verify(string password)
+    {
+        string cleanPassword = password.Trim() ?? string.Empty;
+
+        if (!BCrypt.Net.BCrypt.Verify(cleanPassword, RawValue))
+        {
+            var error = ErrorTrack.Create(PasswordCreateError.ThePasswordDoesntMatch.ToString());
+            return Result<bool>.Failure(error);
+        }
+
+        return Result<bool>.Success(true);
+    }
+
+    #endregion
+
+    #region Private Tools
+
+    [GeneratedRegex(@"^(?=.*[A-Z])(?=.*\d).{15,}$", RegexOptions.None, 100)]
+    private static partial Regex PasswordRegex();
+    private static bool CheckPasswordRules(string password)
+    {
+        return PasswordRegex().IsMatch(password);
+    }
+
+    #endregion
 }

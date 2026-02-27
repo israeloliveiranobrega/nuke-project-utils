@@ -1,11 +1,8 @@
-﻿using NukeProjectUtils.ContainerTypes;
-using NukeProjectUtils.Exceptions;
+﻿using NukeProjectUtils.Exceptions;
 using NukeProjectUtils.ExtensionMethods;
 using NukeProjectUtils.Internal;
 using NukeProjectUtils.ValueObjects.Atomics;
 using PhoneNumbers;
-using static NukeProjectUtils.ExtensionMethods.StringExtensionHelper;
-
 namespace NukeProjectUtils.ValueObjects.Aggregates;
 
 public record Phone
@@ -61,7 +58,7 @@ public record Phone
     /// </summary>
     /// <param name="tokenType">The type of token to generate (OTP, Alpha, etc).</param>
     /// <exception cref="EmailVerificationCodeAlreadyExistsException">Thrown if a valid (non-expired) token already exists.</exception>
-    public void GenerateVerificationToken(VerificationTokenType tokenType)
+    public void GenerateVerificationToken()
     {
         if (Verification != null)
         {
@@ -72,7 +69,7 @@ public record Phone
             }
         }
 
-        Verification = ValidationToken.Create(tokenType);
+       // Verification = ValidationToken.Create(tokenType);
         IsVerified = false;
     }
 
@@ -91,17 +88,17 @@ public record Phone
 
         var response = Verification.VerifyToken(code);
 
-        if (!response.IsSuccess)
+        if (!response.IsFailure)
         {
             IsVerified = false;
 
-            throw response.Failure switch
-            {
-                VerificationFailure.CodeIsNull => new ArgumentNullException(nameof(code), "Verification code cannot be null."),
-                VerificationFailure.CodeNotMatch => new EmailVerificationCodeMismatchException(),
-                VerificationFailure.CodeExpired => new EmailVerificationCodeExpiredException(),
-                _ => new InvalidOperationException($"Unknown verification failure: {response.Failure}"),
-            };
+          // throw response.Failure switch
+          // {
+          //     VerificationFailure.CodeIsNull => new ArgumentNullException(nameof(code), "Verification code cannot be null."),
+          //     VerificationFailure.CodeNotMatch => new EmailVerificationCodeMismatchException(),
+          //     VerificationFailure.CodeExpired => new EmailVerificationCodeExpiredException(),
+          //     _ => new InvalidOperationException($"Unknown verification failure: {response.Failure}"),
+          // };
         }
 
         IsVerified = true;
