@@ -9,8 +9,91 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="libphonenumber-csharp" Version="9.0.24" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.24" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
     <PackageReference Include="UAParser" Version="3.1.47" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\AddressServices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="DataStructure\ValueObjects\Aggregates\ErrorResources\Person\PersonErrors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PersonErrors.resx</DependentUpon>
+    </Compile>
+    <Compile Update="DataStructure\ValueObjects\Atomics\ErrorResources\Address\AddressErrors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AddressErrors.resx</DependentUpon>
+    </Compile>
+    <Compile Update="DataStructure\ValueObjects\Atomics\ErrorResources\Cpf\CpfErros.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CpfErros.resx</DependentUpon>
+    </Compile>
+    <Compile Update="DataStructure\ValueObjects\Atomics\ErrorResources\Email\EmailErrors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EmailErrors.resx</DependentUpon>
+    </Compile>
+    <Compile Update="DataStructure\ValueObjects\Atomics\ErrorResources\Name\NameErrors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NameErrors.resx</DependentUpon>
+    </Compile>
+    <Compile Update="DataStructure\ValueObjects\Atomics\ErrorResources\Password\PasswordErrors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PasswordErrors.resx</DependentUpon>
+    </Compile>
+    <Compile Update="DataStructure\ValueObjects\Atomics\ErrorResources\Phone\PhoneErrors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PhoneErrors.resx</DependentUpon>
+    </Compile>
+    <Compile Update="DataStructure\ValueObjects\Atomics\ErrorResources\ValidationToken\ValidationTokenErrors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ValidationTokenErrors.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="DataStructure\ValueObjects\Aggregates\ErrorResources\Person\PersonErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PersonErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="DataStructure\ValueObjects\Atomics\ErrorResources\Address\AddressErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddressErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="DataStructure\ValueObjects\Atomics\ErrorResources\Cpf\CpfErros.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CpfErros.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="DataStructure\ValueObjects\Atomics\ErrorResources\Email\EmailErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EmailErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="DataStructure\ValueObjects\Atomics\ErrorResources\Name\NameErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NameErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="DataStructure\ValueObjects\Atomics\ErrorResources\Password\PasswordErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PasswordErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="DataStructure\ValueObjects\Atomics\ErrorResources\Phone\PhoneErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PhoneErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="DataStructure\ValueObjects\Atomics\ErrorResources\ValidationToken\ValidationTokenErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationTokenErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
