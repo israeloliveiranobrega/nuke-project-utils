@@ -61,11 +61,47 @@ namespace NukeProjectUtils.DataStructure.ValueObjects.Atomics.ErrorResources.Cpf
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a erbtqfds.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
         /// </summary>
-        internal static string sdgbwr {
+        internal static string CPF1001 {
             get {
-                return ResourceManager.GetString("sdgbwr", resourceCulture);
+                return ResourceManager.GetString("CPF1001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string CPF1002 {
+            get {
+                return ResourceManager.GetString("CPF1002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string CPF1003 {
+            get {
+                return ResourceManager.GetString("CPF1003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string CPF2001 {
+            get {
+                return ResourceManager.GetString("CPF2001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string CPF2002 {
+            get {
+                return ResourceManager.GetString("CPF2002", resourceCulture);
             }
         }
     }

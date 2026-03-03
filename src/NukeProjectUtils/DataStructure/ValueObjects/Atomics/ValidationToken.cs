@@ -72,6 +72,8 @@ public record ValidationToken
     {
         var now = DateTime.UtcNow;
 
+        //talvez usar resource?
+
         return type switch
         {
             ValidationTokenType.OneTimePassword => now.AddMinutes(6),

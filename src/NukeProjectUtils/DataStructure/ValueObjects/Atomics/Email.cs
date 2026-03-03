@@ -1,6 +1,5 @@
 ﻿using NukeProjectUtils.ExtensionMethods;
 using NukeProjectUtils.Patterns.ResultPattern;
-using NukeProjectUtils.Patterns.ResultPattern.BaseErrorResorces;
 using System.Text.RegularExpressions;
 
 namespace NukeProjectUtils.DataStructure.ValueObjects.Atomics;

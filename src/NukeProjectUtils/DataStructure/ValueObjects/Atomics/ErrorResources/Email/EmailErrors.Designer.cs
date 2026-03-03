@@ -62,11 +62,83 @@ namespace NukeProjectUtils.DataStructure.ValueObjects.Atomics.ErrorResources.Ema
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a wergh.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
         /// </summary>
-        internal static string wretg {
+        internal static string EML1001 {
             get {
-                return ResourceManager.GetString("wretg", resourceCulture);
+                return ResourceManager.GetString("EML1001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string EML2001 {
+            get {
+                return ResourceManager.GetString("EML2001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string EML2002 {
+            get {
+                return ResourceManager.GetString("EML2002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string EML2003 {
+            get {
+                return ResourceManager.GetString("EML2003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string EML2004 {
+            get {
+                return ResourceManager.GetString("EML2004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string EML2005 {
+            get {
+                return ResourceManager.GetString("EML2005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string EML2006 {
+            get {
+                return ResourceManager.GetString("EML2006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string EML3001 {
+            get {
+                return ResourceManager.GetString("EML3001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string EML3002 {
+            get {
+                return ResourceManager.GetString("EML3002", resourceCulture);
             }
         }
     }

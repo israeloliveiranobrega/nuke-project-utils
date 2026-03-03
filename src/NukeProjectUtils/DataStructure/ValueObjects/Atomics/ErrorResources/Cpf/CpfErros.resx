@@ -117,8 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="sdgbwr" xml:space="preserve">
-    <value>erbtqfds</value>
-    <comment>fcwgqr</comment>
+  <data name="CPF1001" xml:space="preserve">
+    <value />
+    <comment>O cpf não pode ser nulo ou espaços em branco</comment>
+  </data>
+  <data name="CPF1002" xml:space="preserve">
+    <value />
+    <comment>O cpf decve ser uma sequencia de apenas numeros, sem estar formaado nem conter caracteres especiais</comment>
+  </data>
+  <data name="CPF1003" xml:space="preserve">
+    <value />
+    <comment>O cpf é uma sequencia de 11 digitos, nem mais nem menos</comment>
+  </data>
+  <data name="CPF2001" xml:space="preserve">
+    <value />
+    <comment>O cpf pode ser matematicamente valido porem se for uma sequencia de 11 numeros iguais, ex: 99999999999 ele é um "invalido conhecido"</comment>
+  </data>
+  <data name="CPF2002" xml:space="preserve">
+    <value />
+    <comment>O cpf é uma conta matematica, os dois numeros finais é o que comprovam se é ou não matematicamente valido</comment>
   </data>
 </root>

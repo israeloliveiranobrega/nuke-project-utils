@@ -117,7 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="wretg" xml:space="preserve">
-    <value>wergh</value>
+  <data name="EML1001" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EML2001" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EML2002" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EML2003" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EML2004" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EML2005" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EML2006" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EML3001" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EML3002" xml:space="preserve">
+    <value />
   </data>
 </root>

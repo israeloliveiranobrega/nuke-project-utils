@@ -1,4 +1,5 @@
-﻿using NukeProjectUtils.ExtensionMethods;
+﻿using NukeProjectUtils.DataStructure.ValueObjects.Atomics.ErrorResources.Cpf;
+using NukeProjectUtils.ExtensionMethods;
 using NukeProjectUtils.Patterns.ResultPattern;
 using System.Text.RegularExpressions;
 
@@ -14,7 +15,7 @@ public partial record Cpf
     public IEnumerable<string> TaxRegions => GetRegionsByRegionalCode();
     public string FormattedValue => FormatCpf();
     public string MaskedValue => MaskCpf();
-
+     
     //Construtor para o EF
     private Cpf() { RawValue = null!; }
 
@@ -28,31 +29,31 @@ public partial record Cpf
 
         if (!cleanCpf.HasContent())
         {
-            var error = ErrorTrack.Create(CpfCreateError.NullOrEmpty.ToString());
+            var error = ErrorTrack.Create(CpfErros.CPF1001);
             return Result<Cpf>.Failure(error);
         }
 
         if (!cleanCpf.IsOnlyLettersOrNumbers(CheckType.OnlyNumbers))
         {
-            var error = ErrorTrack.Create(CpfCreateError.InvalidFormat.ToString());
+            var error = ErrorTrack.Create(CpfErros.CPF1002);
             return Result<Cpf>.Failure(error);
         }
 
         if (!cleanCpf.HasLength(11))
         {
-            var error = ErrorTrack.Create(CpfCreateError.NotInTheRange.ToString());
+            var error = ErrorTrack.Create(CpfErros.CPF1003);
             return Result<Cpf>.Failure(error);
         }
 
         if (IsKnownInvalidCpf(cleanCpf))
         {
-            var error = ErrorTrack.Create(CpfCreateError.KnowInvalidCpf.ToString());
+            var error = ErrorTrack.Create(CpfErros.CPF2001);
             return Result<Cpf>.Failure(error);
         }
 
         if(!IsMathematicallyValidCpf(cleanCpf))
         {
-            var error = ErrorTrack.Create(CpfCreateError.MathematicallyInvalid.ToString());
+            var error = ErrorTrack.Create(CpfErros.CPF2002);
             return Result<Cpf>.Failure(error);
         }
 
