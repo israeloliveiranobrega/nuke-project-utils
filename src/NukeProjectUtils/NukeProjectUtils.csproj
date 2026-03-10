@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<IsPackable>true</IsPackable>
+	<PackageId>NukeUtils</PackageId>
+	<Version>1.0.0</Version>
+	<Authors>DevRitto</Authors>
+	<Company>NukeRouter</Company>
+	<Description>Ready-made solutions to solve everyday problems.</Description>
+	<PackageTags>utilities;core;jwt;.net</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Services\AddressServices\**" />
+    <EmbeddedResource Remove="Services\AddressServices\**" />
+    <None Remove="Services\AddressServices\**" />
+  </ItemGroup>
+
+<!--Dependencias-->
+  <ItemGroup>
+    <PackageReference Include="Konscious.Security.Cryptography.Argon2" Version="1.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.24" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+  </ItemGroup>
+
+</Project>
