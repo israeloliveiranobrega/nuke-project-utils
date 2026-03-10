@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace NukeProjectUtils.Algorithmic.Sort;
 
-namespace NukeProjectUtils.Algorithmic.Sort
+internal class InsertionSort
 {
-    internal class InsertionSort
-    {
-    }
 }
